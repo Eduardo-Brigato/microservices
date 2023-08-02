@@ -13,52 +13,56 @@ public class MathController {
 
     @Autowired
     private SimpleMath math;
+
+    @Autowired
+    private NumberConverter converter;
+
     @RequestMapping(value = "sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sum(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) {
-        if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
+        if (!converter.isNumeric(numberOne) || !converter.isNumeric(numberTwo)) {
             throw new UnsupportedOperationException("Please set a numeric value!");
         }
-        return math.sum(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
+        return math.sum(converter.convertToDouble(numberOne), converter.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "sub/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sub(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo){
-        if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
+        if (!converter.isNumeric(numberOne) || !converter.isNumeric(numberTwo)) {
             throw new UnsupportedOperationException("Please set a numeric value!");
         }
-        return math.sub(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
+        return math.sub(converter.convertToDouble(numberOne), converter.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "mult/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double mult(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo){
-        if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
+        if (!converter.isNumeric(numberOne) || !converter.isNumeric(numberTwo)) {
             throw new UnsupportedOperationException("Please set a numeric value!");
         }
-        return math.mult(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
+        return math.mult(converter.convertToDouble(numberOne), converter.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "div/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double div(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo){
-        if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
+        if (!converter.isNumeric(numberOne) || !converter.isNumeric(numberTwo)) {
             throw new UnsupportedOperationException("Please set a numeric value!");
         }
-        return math.div(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
+        return math.div(converter.convertToDouble(numberOne), converter.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "mean/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double mean(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) {
-        if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
+        if (!converter.isNumeric(numberOne) || !converter.isNumeric(numberTwo)) {
             throw new UnsupportedOperationException("Please set a numeric value!");
         }
-        return math.media(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
+        return math.media(converter.convertToDouble(numberOne), converter.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "squareRoot/{number}", method = RequestMethod.GET)
     public Double squareRoot(@PathVariable(value = "number") String number){
-        if (!NumberConverter.isNumeric(number)) {
+        if (!converter.isNumeric(number)) {
             throw new UnsupportedOperationException("Please set a numeric value!");
         }
-        return math.sqrt(NumberConverter.convertToDouble(number));
+        return math.sqrt(converter.convertToDouble(number));
     }
 
 
