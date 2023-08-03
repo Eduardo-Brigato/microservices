@@ -21,3 +21,7 @@ spring:
     schemas: cambio-service
     user: root
     password: admin123
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
