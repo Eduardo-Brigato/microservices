@@ -1,8 +1,6 @@
 package br.com.erudio.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +8,8 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @Entity(name="Cambio")
 public class Cambio implements Serializable {
@@ -30,16 +30,4 @@ public class Cambio implements Serializable {
     @Transient
     private String enviroment;
 
-    public Cambio(){
-
-    }
-
-    public Cambio(Long id, String from, String to, BigDecimal conversionFactory, BigDecimal convertedValue, String enviroment) {
-        this.id = id;
-        this.from = from;
-        this.to = to;
-        this.conversionFactor = conversionFactory;
-        this.convertedValue = convertedValue;
-        this.enviroment = enviroment;
-    }
 }
