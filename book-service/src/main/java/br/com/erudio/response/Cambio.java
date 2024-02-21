@@ -1,14 +1,14 @@
 package br.com.erudio.response;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 public class Cambio implements Serializable {
 
@@ -21,16 +21,4 @@ public class Cambio implements Serializable {
     private BigDecimal convertedValue;
     private String enviroment;
 
-    public Cambio(){
-
-    }
-
-    public Cambio(Long id, String from, String to, BigDecimal conversionFactory, BigDecimal convertedValue, String enviroment) {
-        this.id = id;
-        this.from = from;
-        this.to = to;
-        this.conversionFactor = conversionFactory;
-        this.convertedValue = convertedValue;
-        this.enviroment = enviroment;
-    }
 }

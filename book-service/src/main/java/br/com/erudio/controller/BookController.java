@@ -1,45 +1,51 @@
 package br.com.erudio.controller;
 
-import br.com.erudio.model.Book;
+import br.com.erudio.model.dto.BookDTO;
 import br.com.erudio.proxy.CambioProxy;
-import br.com.erudio.repository.BookRepository;
-import br.com.erudio.response.Cambio;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.erudio.service.IBookService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
-
+import java.util.Objects;
+@Tag(name = "Book Endpoint")
 @RestController
 @RequestMapping("book-service")
 public class BookController {
 
-    @Autowired
+    @Resource
     private Environment environment;
 
-    @Autowired
-    private BookRepository repository;
+    @Resource
+    private IBookService service;
 
-    @Autowired
+    @Resource
     private CambioProxy proxy;
 
+    @Operation(summary = "Find a specific book by your ID")
     @GetMapping(value = "/{id}/{currency}")
-    public Book findById(@PathVariable("id")Long id,
-                         @PathVariable("currency")String currency){
-        var book = repository.getById(id);
-        if (book == null) throw new RuntimeException("Book not Found");
+    public BookDTO findById(@PathVariable("id")Long id,
+                            @PathVariable("currency")String currency){
+
+        BookDTO book = service.getById(id);
+
+        if (Objects.isNull(book)) throw new RuntimeException("Book not Found");
 
         HashMap<String,String> params = new HashMap<>();
 
         var cambio = proxy.getCambio(book.getPrice(), "USD", currency);
 
         var port = environment.getProperty("local.server.port");
+
         book.setEnviroment("Book port: " + port + " Cambio Port: " + cambio.getEnviroment());
         book.setPrice(cambio.getConvertedValue());
+
         return book;
     }
 }

@@ -1,9 +1,7 @@
 package br.com.erudio.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +10,8 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Entity(name = "book")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -31,21 +31,6 @@ public class Book implements Serializable {
     private BigDecimal price;
     @Column(nullable = false, length = 250)
     private String title;
-    @Transient
-    private String currency;
-    @Transient
-    private String enviroment;
 
-    public Book(){
-    }
 
-    public Book(Long id, String author, String title, Date launchDate, BigDecimal price, String currency, String enviroment) {
-        this.id = id;
-        this.author = author;
-        this.launchDate = launchDate;
-        this.price = price;
-        this.title = title;
-        this.currency = currency;
-        this.enviroment = enviroment;
-    }
 }
